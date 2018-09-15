@@ -1,6 +1,6 @@
-# aws-copy-concurrent
+# s3-copy-concurrent
 
-This is a multiprocessed Python 3 script that provides a function to copy files from one location in S3 to another. Concurrent copyt operations on multiple directories expedites copy times. When running, it prints:
+This is a Python 3 script that provides a function to concurrenrly copy files from one location in AWS S3 to another. Concurrent copy operations on multiple directories expedites copy times. When running, it prints:
 
     364_1 -> 37303
     Folder doesnt exist
