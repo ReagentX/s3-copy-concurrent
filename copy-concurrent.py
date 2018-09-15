@@ -123,39 +123,40 @@ def process(lst: list, function, processes: int):
     return list(result)
 
 
-def handle(self, *args, **options):
-    maps = get_objects(f'{OLD_FOLDER}/')
+def handle():
+    data = get_objects(f'{OLD_FOLDER}/')
     # May need to do some additional pruning here
+    for d in data:
 
-    # This is the path of the existing folder and the new folder
-    prefix = build_prefix(OLD_FOLDER, [aws_id, aws_idx])
-    new_prefix = build_prefix(NEW_FOLDER, [id_])
+        # This is the path of the existing folder and the new folder
+        prefix = build_prefix(OLD_FOLDER, [d.aws_id, d.aws_idx])
+        new_prefix = build_prefix(NEW_FOLDER, [d.id_])
 
-    if should_copy(prefix, new_prefix):
-        # Get the contents of the folder we need to move
-        print(f'{prefix} moves to {new_prefix}')
-        contents = [obj['Key'] for obj in get_objects(prefix)]
+        if should_copy(prefix, new_prefix):
+            # Get the contents of the folder we need to move
+            print(f'{prefix} moves to {new_prefix}')
+            contents = [obj['Key'] for obj in get_objects(prefix)]
 
-        """
-        Multiprocess copying can only take one arg
-        Generate a dict of {old: 'path', new: 'path2'}
-        """
-        copies = []
-        for f in contents:
-            copies.append({'old': f, 'new': f'{new_prefix}{f.replace(prefix, "")}'})
+            """
+            Multiprocess copying can only take one arg
+            Generate a dict of {old: 'path', new: 'path2'}
+            """
+            copies = []
+            for f in contents:
+                copies.append({'old': f, 'new': f'{new_prefix}{f.replace(prefix, "")}'})
 
-        a = datetime.datetime.now()
-        # Process the array of dicts
-        res = process(copies, copy, 32)
-        
-        # If any items failed to upload, let us know
-        if any(item == False for item in res):
-            print(f'{len([x for x in res if x == False])} failed copy operations.')
+            a = datetime.datetime.now()
+            # Process the array of dicts
+            res = process(copies, copy, 32)
+            
+            # If any items failed to upload, let us know
+            if any(item == False for item in res):
+                print(f'{len([x for x in res if x == False])} failed copy operations.')
 
-        # Print the time the copy operations took
-        b = datetime.datetime.now()
-        print(f'{len(contents)} copy operations in {(b - a).seconds // 60}:{(b - a).seconds % 60}')
+            # Print the time the copy operations took
+            b = datetime.datetime.now()
+            print(f'{len(contents)} copy operations in {(b - a).seconds // 60}:{(b - a).seconds % 60}')
 
-    else:
-        # If we already copied the folder who cares?
-        print(f'Skipping!')
+        else:
+            # If we already copied the folder who cares?
+            print(f'Skipping!')
