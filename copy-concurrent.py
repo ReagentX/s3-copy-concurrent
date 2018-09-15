@@ -97,7 +97,7 @@ def process(lst: list, function, processes: int):
     # Tell the user what is happening
     print(f"Copying {len(lst)} items using {function} in {count_threads} processes.")
 
-    # Calls function() and adds the filesize returned each call to an lst
+    # Calls function() and returns True for success and False for fail each call to a lst
     result = (pool.imap_unordered(function, lst))
     pool.close()
 
