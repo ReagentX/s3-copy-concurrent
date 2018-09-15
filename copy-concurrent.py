@@ -124,7 +124,6 @@ def process(lst: list, function, processes: int):
 
 
 def handle(self, *args, **options):
-    # get_object_count(client, "stream/30423")
     maps = get_objects(f'{OLD_FOLDER}/')
     # May need to do some additional pruning here
 
