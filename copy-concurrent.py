@@ -155,7 +155,7 @@ def handle():
 
             # Print the time the copy operations took
             b = datetime.datetime.now()
-            print(f'{len(contents)} copy operations in {(b - a).seconds // 60}:{(b - a).seconds % 60}')
+            print(f'{len(contents)} copy operations in {(b - a).seconds // 60}:{str((b - a).seconds % 60).zfill(2)}')
 
         else:
             # If we already copied the folder who cares?
