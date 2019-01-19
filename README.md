@@ -11,3 +11,13 @@ This is a Python 3 script that provides a function to concurrenrly copy files fr
 The first line means that we are checking the files under the prefix 364_1 to ensure they are all in 37303. Since 37303 doesn't exist, we copy from original/364/1 to new/37303. This runs in 32 processes, i.e. 32 concurrent copy operations, and completes in 1 minute and 19 seconds.
 
 The only dependency is the AWS s3 library `boto3` which can be installed into your `venv` with `pip install boto3`.
+
+## Analysis
+
+You can analyze the printout by piping the output to a file and running `analyze.py` to get some interesting numbers:
+
+    Total copies:   10,130,334
+    Total seconds:  117,735
+    Total minutes:  1962.25
+    Total hours:    32.70
+    Total days:     1.36
